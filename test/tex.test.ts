@@ -87,6 +87,17 @@ describe('validateColumnParameters()', () => {
       expect(validateColumnParameters(testCases, numOfCol)).toBe(expected);
     });
   });
+  test('カラムパラメータの数がカラム数より多い場合、余計なパラメータが削除される', () => {
+    const testCases: [string, number, string][] = [
+      ['lcr', 2, 'lc'],
+      ['l|c|r', 2, 'l|c|'],
+      ['l|c|r|t|e||s|t', 3, 'l|c|r|'],
+      ['l|c||r', 2, 'l|c||'],
+    ];
+    testCases.forEach(([testCases, numOfCol, expected]) => {
+      expect(validateColumnParameters(testCases, numOfCol)).toBe(expected);
+    });
+  });
 });
 describe('escapeTexChar()', () => {
   test('特殊文字がエスケープされること', () => {

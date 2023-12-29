@@ -58,7 +58,8 @@ export function arrayToTable(
  */
 export function escapeTexChar(str: string): string {
   const escapeRules: [string, string][] = [
-    ['\\', '\\textbackslash'], //must be first in this array
+    ['\\', '\\textbackslash'], //must be first
+    ['\\textbackslashn', '\\par '],
     ['&', '\\&'],
     ['$', '\\$'],
     ['%', '\\%'],
@@ -81,22 +82,32 @@ export function escapeTexChar(str: string): string {
 
 /**
  * カラムパラメータを検証します。
- * 適切でない文字は`c`に置き換えられます。
+ * 適切でないパラメータは`c`に置き換えられます。
  * カラムパラメータの数がカラムの数より少ない場合、`c`が追加されます。
+ * カラムパラメータの数がカラムの数より多い場合、末尾のパラメータが削除されます。
  * @param str カラムパラメータの文字列
  * @param numOfCol カラムの数
  * @returns 検証されたカラムパラメータの文字列
  */
 export function validateColumnParameters(str: string = '', numOfCol: number): string {
-  const columnParameters = str.replaceAll(' ', '').split('');
-  const paramsWithoutBar = columnParameters.filter((v) => v !== '|');
-  if (paramsWithoutBar.length !== numOfCol) {
-    columnParameters.push(...Array(numOfCol - paramsWithoutBar.length).fill('c'));
+  const parameters = str.replaceAll(' ', '').split('');
+  const paramsWithoutBar = parameters.filter((v) => v !== '|');
+  if (paramsWithoutBar.length < numOfCol) {
+    parameters.push(...Array(numOfCol - paramsWithoutBar.length).fill('c'));
+  } else if (paramsWithoutBar.length > numOfCol) {
+    let paramCount = 0;
+    parameters.forEach((c, i) => {
+      if (c !== '|') paramCount++;
+      if (paramCount > numOfCol) {
+        parameters.splice(i);
+        return;
+      }
+    });
   }
 
   const validParameters = ['l', 'c', 'r'];
-  columnParameters.forEach((param, i) => {
-    if (param !== '|' && !validParameters.includes(param)) columnParameters[i] = 'c';
+  parameters.forEach((param, i) => {
+    if (param !== '|' && !validParameters.includes(param)) parameters[i] = 'c';
   });
-  return columnParameters.join('');
+  return parameters.join('');
 }
