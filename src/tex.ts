@@ -59,7 +59,7 @@ export function arrayToTable(
 export function escapeTexChar(str: string): string {
   const escapeRules: [string, string][] = [
     ['\\', '\\textbackslash'], //must be first
-    ['\\textbackslashn', '\\par '],
+    ['\\textbackslashn', '\\\\ '],
     ['&', '\\&'],
     ['$', '\\$'],
     ['%', '\\%'],
