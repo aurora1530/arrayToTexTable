@@ -21,7 +21,7 @@ const options: TableOptions = {
     rowsRequiringHline: [0, 1, 2],
   },
   tableLocation: 't',
-  title: 'Sample Table',
+  caption: 'Sample Table',
 };
 
 writeTexTableFromCsv(csvPath, outputPath, options);

@@ -40,7 +40,7 @@ describe('arrayToTable()', () => {
         rowsRequiringHline: [0],
       },
       tableLocation: 't',
-      title: 'Sample Table',
+      caption: 'Sample Table',
     };
     const expectedTable = `\\begin{table}[t]\n\\caption{Sample Table}\n\\begin{tabular}{lcr}\nA & B & C \\\\\\hline\nD & E & F \\\\\n\\end{tabular}\n\\end{table}`;
     expect(arrayToTable(array, options)).toBe(expectedTable);

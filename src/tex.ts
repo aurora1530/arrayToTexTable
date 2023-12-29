@@ -3,7 +3,7 @@ import { isUniformColumnSize, uniformMatrix } from './components/array';
 export type TableOptions = {
   tabularOptions?: TabularOptions;
   tableLocation?: 'h' | 't' | 'b' | 'p' | 'H';
-  title?: string;
+  caption?: string;
   matrixOptions?: MatrixOptions;
 };
 
@@ -46,7 +46,7 @@ export function arrayToTable(
 
   const tabular = `\\begin{tabular}{${tabularOption}}\n${tabularBody}\n\\end{tabular}`;
   const tableLocation = options?.tableLocation ?? 'h';
-  const title = options?.title ? `\\caption{${options.title}}\n` : '';
+  const title = options?.caption ? `\\caption{${options.caption}}\n` : '';
   const table = `\\begin{table}[${tableLocation}]\n${title}${tabular}\n\\end{table}`;
   return table;
 }
