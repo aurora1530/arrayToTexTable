@@ -20,12 +20,11 @@ export function uniformMatrix<T>(matrix: T[][], isAddingFromEnd: boolean = false
   if (isUniformColumnSize(matrix)) return matrix;
 
   const maxColSize = Math.max(...matrix.map((row) => row.length));
-  matrix.forEach((row, i) => {
-    if (row.length === maxColSize) return;
+  return matrix.map((row, i) => {
+    if (row.length === maxColSize) return row;
     const addElements = Array(maxColSize - row.length).fill(undefined);
     if (isAddingFromEnd) row.push(...addElements);
     else row.unshift(...addElements);
-    matrix[i] = row;
+    return row;
   });
-  return matrix;
 }
