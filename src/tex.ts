@@ -1,4 +1,4 @@
-import { isUniformColumnSize, uniformMatrix } from './components/array';
+import { uniformMatrix } from './components/array';
 
 export type TableOptions = {
   tabularOptions?: TabularOptions;
