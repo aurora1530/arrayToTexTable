@@ -29,5 +29,13 @@ describe('markdownToArray()', () => {
       align: ['l', 'c', 'r'],
     };
     expect(markdownToArray(mdstr2)).toEqual(mdarr2);
+
+    const mdstr3 = `| th | th | th |
+| :--- | :---: | ---: |`;
+    const mdarr3: MarkdownArray = {
+      table: [['th', 'th', 'th']],
+      align: ['l', 'c', 'r'],
+    };
+    expect(markdownToArray(mdstr3)).toEqual(mdarr3);
   });
 });
