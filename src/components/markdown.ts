@@ -5,8 +5,8 @@ export type MarkdownArray = {
 
 export function markdownToArray(md: string): MarkdownArray {
   const lines = md.split('\n').map((line) => line.replace(/^\||\|$/g, ''));
-  const align: ('l' | 'c' | 'r')[] = lines[1].split('|').map((x) => {
-    switch (x.trim()) {
+  const align: ('l' | 'c' | 'r')[] = lines[1].split('|').map((cell) => {
+    switch (cell.trim()) {
       case ':---':
         return 'l';
       case ':---:':
@@ -18,8 +18,8 @@ export function markdownToArray(md: string): MarkdownArray {
     }
   });
   const table = [
-    lines[0].split('|').map((x) => x.trim()),
-    ...lines.slice(2).map((x) => x.split('|').map((x) => x.trim())),
+    lines[0].split('|').map((cell) => cell.trim()),
+    ...lines.slice(2).map((row) => row.split('|').map((cell) => cell.trim())),
   ];
   return { table, align };
 }
