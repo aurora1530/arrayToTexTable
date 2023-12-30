@@ -3,8 +3,14 @@ export type MarkdownArray = {
   align: ('l' | 'c' | 'r')[];
 };
 
-export function markdownToArray(md: string): MarkdownArray {
-  const lines = md.split('\n').map((line) => line.replace(/^\||\|$/g, ''));
+/**
+ * マークダウン形式のテーブルを配列に変換する関数です。
+ *
+ * @param mdTable マークダウン形式のテーブル
+ * @returns 変換された配列とセルの配置情報を含むオブジェクト
+ */
+export function markdownToArray(mdTable: string): MarkdownArray {
+  const lines = mdTable.split('\n').map((line) => line.replace(/^\||\|$/g, ''));
   const align: ('l' | 'c' | 'r')[] = lines[1].split('|').map((cell) => {
     switch (cell.trim()) {
       case ':---':
