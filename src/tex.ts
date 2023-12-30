@@ -11,9 +11,9 @@ type MatrixOptions = {
   isAddingFromEnd?: boolean;
 };
 
-type TabularOptions = {
-  columnParameters: string;
-  rowsRequiringHline: Number[];
+export type TabularOptions = {
+  columnParameters?: string;
+  rowsRequiringHline?: Number[];
 };
 
 /**
@@ -37,7 +37,7 @@ export function arrayToTable(
   );
   const tabularBody = array
     .map((row, i) => {
-      const hline = options?.tabularOptions?.rowsRequiringHline.includes(i)
+      const hline = options?.tabularOptions?.rowsRequiringHline?.includes(i)
         ? '\\hline'
         : '';
       return row.join(' & ') + ' \\\\' + hline;
